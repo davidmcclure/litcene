@@ -63,7 +63,7 @@ object Index {
   def main(args: Array[String]) {
     val idx = new Index
     idx.indexDirectory("/Users/dclure/Downloads/Science_Fiction/Corpus")
-    println(idx.documents.size)
+    println(idx.tokens.length)
   }
 
 }
