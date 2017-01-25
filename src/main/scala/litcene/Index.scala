@@ -9,8 +9,6 @@ import org.apache.commons.io.FilenameUtils
 
 
 // TODO
-// better formatting for KWIC output
-// make surrogate ids for docs, use these in token list
 // parallel tokenization
 // store tokens / indexes on disk
 
@@ -18,16 +16,22 @@ class Index {
 
   val tokenizer = new Tokenizer
 
-  val documents: HashMap[String, String] = HashMap.empty
+  val documents: HashMap[Int, String] = HashMap.empty
 
   val tokens: ArrayBuffer[IndexToken] = ArrayBuffer.empty
 
+  def nextDocId: Int = {
+    documents.size + 1
+  }
+
   def index(id: String, text: String) {
 
-    documents(id) = text
+    val docId = nextDocId
+
+    documents(docId) = text
 
     val docTokens = for (t <- tokenizer(text)) yield {
-      IndexToken(id, t.token, t.start, t.end, t.offset)
+      IndexToken(docId, t.token, t.start, t.end, t.offset)
     }
 
     tokens ++= docTokens

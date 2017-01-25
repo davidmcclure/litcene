@@ -11,7 +11,7 @@ case class Token(
 )
 
 case class IndexToken(
-  docId: String,
+  docId: Int,
   token: String,
   start: Int,
   end: Int,
