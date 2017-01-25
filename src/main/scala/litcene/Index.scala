@@ -8,6 +8,12 @@ import scala.io.Source
 import org.apache.commons.io.FilenameUtils
 
 
+// TODO
+// better formatting for KWIC output
+// make surrogate ids for docs, use these in token list
+// parallel tokenization
+// store tokens / indexes on disk
+
 class Index {
 
   val tokenizer = new Tokenizer
@@ -44,7 +50,7 @@ class Index {
 
   }
 
-  def kwic(query: String, padding: Int = 100) {
+  def kwic(query: String, padding: Int = 50) {
     for (t <- tokens if t.token == query) {
 
       val docText = documents(t.docId)
@@ -53,7 +59,13 @@ class Index {
       val token   = docText.slice(t.start, t.end)
       val suffix  = docText.slice(t.end, t.end+padding)
 
-      println(prefix, token, suffix)
+      println(
+        prefix +
+        Console.RED +
+        token +
+        Console.RESET +
+        suffix
+      )
 
     }
   }
