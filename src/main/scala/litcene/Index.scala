@@ -3,41 +3,10 @@
 package litcene
 
 import java.io.File
-
 import scala.collection.mutable.{HashMap,ArrayBuffer}
 import scala.io.Source
-
 import org.apache.commons.io.FilenameUtils
 
-
-case class Token(
-  token: String,
-  start: Int,
-  end: Int,
-  offset: Double
-)
-
-case class Tokenizer(regex: String = "[a-z]+") {
-
-  def apply(text: String): List[Token] = {
-
-    val matches = regex.r.findAllMatchIn(text.toLowerCase).toList
-
-    for ((m, i) <- matches.zipWithIndex) yield {
-      new Token(m.matched, m.start, m.end, i.toDouble / matches.length)
-    }
-
-  }
-
-}
-
-case class IndexToken(
-  docId: String,
-  token: String,
-  start: Int,
-  end: Int,
-  offset: Double
-)
 
 class Index {
 
