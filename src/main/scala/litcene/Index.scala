@@ -44,6 +44,20 @@ class Index {
 
   }
 
+  def kwic(query: String, padding: Int = 100) {
+    for (t <- tokens if t.token == query) {
+
+      val docText = documents(t.docId)
+
+      val prefix  = docText.slice(t.start-padding, t.start)
+      val token   = docText.slice(t.start, t.end)
+      val suffix  = docText.slice(t.end, t.end+padding)
+
+      println(prefix, token, suffix)
+
+    }
+  }
+
 }
 
 object Index {
@@ -63,7 +77,7 @@ object Index {
   def main(args: Array[String]) {
     val idx = new Index
     idx.indexDirectory("/Users/dclure/Downloads/Science_Fiction/Corpus")
-    println(idx.tokens.length)
+    idx.kwic("woman")
   }
 
 }
