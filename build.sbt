@@ -11,7 +11,10 @@ lazy val root = (project in file(".")).settings(
 
   name := "Litcene",
 
-  libraryDependencies += scalaTest % Test,
-  libraryDependencies += commonsIo
+  libraryDependencies ++= Seq(
+    commonsIo,
+    mapDb,
+    scalaTest % Test
+  )
 
 )
