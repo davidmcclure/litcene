@@ -16,14 +16,20 @@ class Index {
 
   val tokenizer = new Tokenizer
 
+  /* Document id -> text.
+   */
   val documents: HashMap[Int, String] = HashMap.empty
 
+  /* List of all tokens.
+   */
   val tokens: ArrayBuffer[IndexToken] = ArrayBuffer.empty
 
   def nextDocId: Int = {
     documents.size + 1
   }
 
+  /* Index an individual document.
+   */
   def index(id: String, text: String) {
 
     val docId = nextDocId
@@ -40,11 +46,15 @@ class Index {
 
   }
 
+  /* Read a text file, index content.
+   */
   def indexFile(id: String, path: String) {
     val text = Source.fromFile(path).getLines.mkString
     index(id, text)
   }
 
+  /* Index all text files in a directory.
+   */
   def indexDirectory(path: String) {
 
     for (f <- Index.getListOfFiles(path)) {
@@ -54,6 +64,8 @@ class Index {
 
   }
 
+  /* Print KWIC matches for a query token.
+   */
   def kwic(query: String, padding: Int = 50) {
     for (t <- tokens if t.token == query) {
 
@@ -78,6 +90,8 @@ class Index {
 
 object Index {
 
+  /* List all files in a directory.
+   */
   def getListOfFiles(path: String): List[File] = {
 
     val d = new File(path)
